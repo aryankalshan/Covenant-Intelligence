@@ -1,0 +1,13 @@
+{
+  "case_id": "TC02",
+  "title": "Interest coverage and four-quarter testing period",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 4.2 Interest Coverage. The Borrower shall maintain an Interest Coverage Ratio of not less than 3.00:1.00 for each Testing Period.",
+        "Section 1.1. Interest Coverage Ratio means EBITDA divided by Interest Expense. Testing Period means the four consecutive fiscal quarters ending on a fiscal quarter end."
+      ]
+    }
+  }
+}

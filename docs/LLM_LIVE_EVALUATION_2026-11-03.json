@@ -1,0 +1,32 @@
+{
+  "evaluated_at_utc": "2026-11-03T00:51:55.370076+00:00",
+  "document_classification": "synthetic_demo_only",
+  "run_id": "15f41153-dc3a-4b61-82e2-ddc1979ce0b5",
+  "provider": null,
+  "model": "openai/gpt-6.1-terra",
+  "status": "partial",
+  "error_code": "provider_insufficient_credits",
+  "error_summary": "OpenRouter reports insufficient credits (HTTP 402). Add credits or review account limits.",
+  "chunk_count": 1,
+  "processed_chunk_count": 1,
+  "screened_out_chunk_count": 0,
+  "candidate_count": 0,
+  "candidate_origin_values": [],
+  "schema_valid_candidate_count": 0,
+  "evidence_quote_count": 0,
+  "verified_evidence_quote_count": 0,
+  "definition_count": 0,
+  "verified_definition_count": 0,
+  "cross_reference_count": 0,
+  "verified_cross_reference_count": 0,
+  "candidates": [],
+  "validation_findings": [
+    {
+      "code": "provider_insufficient_credits",
+      "message": "OpenRouter reports insufficient credits (HTTP 402). Add credits or review account limits.",
+      "chunk_index": 1,
+      "http_status": 402
+    }
+  ],
+  "note": "No API key, raw prompt, or raw source text is stored in this record. Mock providers were not used for this run."
+}

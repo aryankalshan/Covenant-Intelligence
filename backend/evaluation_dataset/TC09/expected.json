@@ -1,0 +1,39 @@
+{
+  "case_id": "TC09",
+  "title": "Annual audited statements with extension exception",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "reporting_obligation",
+        "obligation_description": "Annual Audited Financial Statements",
+        "source_wording": "The Borrower shall deliver audited annual financial statements within 90 days after each fiscal year end; if the auditor is delayed despite the Borrower's diligent efforts, delivery is extended to 120 days.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": "annually",
+        "testing_period": "Each fiscal year",
+        "reporting_deadline": "Within 90 days after each fiscal year end",
+        "deadline_calculation_rule": "120 days after fiscal year end if auditor delay occurs despite diligent efforts",
+        "conditions": [
+          "if the auditor is delayed despite the Borrower's diligent efforts"
+        ],
+        "exceptions": [
+          "delivery is extended to 120 days"
+        ],
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall deliver audited annual financial statements within 90 days after each fiscal year end; if the auditor is delayed despite the Borrower's diligent efforts, delivery is extended to 120 days.",
+            "source_page": 1,
+            "source_section": "Section 6.2"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

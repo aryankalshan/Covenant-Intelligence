@@ -1,0 +1,1487 @@
+{
+  "created_at_utc": "2026-11-03T01:23:44+00:00",
+  "dataset_case_count": 19,
+  "dataset_document_count": 20,
+  "dataset_ground_truth_obligation_count": 18,
+  "matching_method": "One-to-one greedy maximum normalized source-wording similarity assignment; minimum similarity 0.50; duplicates can match at most one expected item.",
+  "real_llm": {
+    "attempted": true,
+    "model": "openai/gpt-6.1-terra",
+    "cases_attempted": 1,
+    "metrics": null,
+    "results": [
+      {
+        "case_id": "TC01",
+        "title": "Quarterly maximum leverage with remote definition",
+        "status": "provider_blocked",
+        "error_code": "provider_insufficient_credits",
+        "http_status": 402,
+        "candidate_count": 0,
+        "metrics": null,
+        "note": "Actual synthetic agreement extraction request; provider returned HTTP 402 before a model response. No response content, citations, or usage were available."
+      }
+    ],
+    "metric_note": "No successful real model response was produced. All real extraction quality metrics are not measured (null), not zero. Mock and seeded results are excluded.",
+    "provider_blocked": {
+      "case_id": "TC01",
+      "error_code": "provider_insufficient_credits",
+      "http_status": 402,
+      "message": "OpenRouter reports insufficient credits (HTTP 402). Add credits or review account limits.",
+      "stops_further_real_cases": true
+    },
+    "not_attempted_case_ids": [
+      "TC02",
+      "TC03",
+      "TC04",
+      "TC05",
+      "TC06",
+      "TC07",
+      "TC08",
+      "TC09",
+      "TC10",
+      "TC11",
+      "TC12",
+      "TC13",
+      "TC14",
+      "TC15",
+      "TC16",
+      "TC17",
+      "TC18",
+      "TC19"
+    ],
+    "followup_attempt": {
+      "status": "interrupted_without_recorded_response",
+      "case_id": "TC01",
+      "note": "A later verification rerun remained pending and was interrupted; it is not counted as a completed provider response."
+    }
+  },
+  "mock_pipeline": {
+    "executed": true,
+    "results": [
+      {
+        "case_id": "TC01",
+        "title": "Quarterly maximum leverage with remote definition",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Maximum Total Leverage Ratio",
+              "source_wording": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+              "threshold_value": "3.50",
+              "comparison_operator": "<=",
+              "threshold_unit": "ratio",
+              "measurement_basis": "Total Debt / EBITDA",
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "as of any fiscal quarter end"
+              ],
+              "exceptions": null,
+              "referenced_definitions": [
+                {
+                  "term": "Total Leverage Ratio",
+                  "definition_text": "Total Leverage Ratio means Total Debt divided by EBITDA for the applicable Testing Period.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                },
+                {
+                  "term": "Testing Period",
+                  "definition_text": "Testing Period means each period of four consecutive fiscal quarters.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+                  "source_page": 1,
+                  "source_section": "Section 4.1"
+                },
+                {
+                  "quote": "Total Leverage Ratio means Total Debt divided by EBITDA for the applicable Testing Period.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                },
+                {
+                  "quote": "Testing Period means each period of four consecutive fiscal quarters.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "4da1ee1b-afb3-4ddd-b90b-114bb613787c",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC02",
+        "title": "Interest coverage and four-quarter testing period",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Minimum Interest Coverage Ratio",
+              "source_wording": "The Borrower shall maintain an Interest Coverage Ratio of not less than 3.00:1.00 for each Testing Period.",
+              "threshold_value": "3.00",
+              "comparison_operator": ">=",
+              "threshold_unit": "ratio",
+              "measurement_basis": "EBITDA / Interest Expense",
+              "testing_frequency": "quarterly",
+              "testing_period": "The four consecutive fiscal quarters ending on a fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": [
+                {
+                  "term": "Interest Coverage Ratio",
+                  "definition_text": "Interest Coverage Ratio means EBITDA divided by Interest Expense.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                },
+                {
+                  "term": "Testing Period",
+                  "definition_text": "Testing Period means the four consecutive fiscal quarters ending on a fiscal quarter end.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain an Interest Coverage Ratio of not less than 3.00:1.00 for each Testing Period.",
+                  "source_page": 1,
+                  "source_section": "Section 4.2"
+                },
+                {
+                  "quote": "Interest Coverage Ratio means EBITDA divided by Interest Expense.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                },
+                {
+                  "quote": "Testing Period means the four consecutive fiscal quarters ending on a fiscal quarter end.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "7998b1cd-27ba-4a29-a614-fed56aff8556",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC03",
+        "title": "Minimum liquidity in INR crore",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Minimum Liquidity Requirement",
+              "source_wording": "The Borrower shall maintain Liquidity of at least INR 12 crore at all times.",
+              "threshold_value": "12",
+              "comparison_operator": ">=",
+              "threshold_unit": "INR crore",
+              "measurement_basis": "Unrestricted cash and cash equivalents",
+              "testing_frequency": "continuous",
+              "testing_period": "At all times",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain Liquidity of at least INR 12 crore at all times.",
+                  "source_page": 1,
+                  "source_section": "Section 4.3"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "38d4eb2b-dcf4-4031-a4a0-9c17405ffa6d",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC04",
+        "title": "Annual debt-service coverage",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Minimum Debt Service Coverage Ratio",
+              "source_wording": "The Borrower shall maintain a Debt Service Coverage Ratio of at least 1.25x for each fiscal year, tested on an annual basis.",
+              "threshold_value": "1.25",
+              "comparison_operator": ">=",
+              "threshold_unit": "x",
+              "measurement_basis": "Cash flow available for debt service / scheduled debt service",
+              "testing_frequency": "annually",
+              "testing_period": "Each fiscal year",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain a Debt Service Coverage Ratio of at least 1.25x for each fiscal year, tested on an annual basis.",
+                  "source_page": 1,
+                  "source_section": "Section 4.4"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "4485a3d3-9734-470e-b913-42a9dc20b43b",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "needs_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC05",
+        "title": "Additional debt restriction and permitted-debt exception",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "negative_covenant",
+              "obligation_description": "Restriction on Additional Indebtedness",
+              "source_wording": "The Borrower shall not incur any additional Indebtedness, except Permitted Debt.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": null,
+              "testing_period": null,
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": [
+                "Permitted Debt"
+              ],
+              "referenced_definitions": [
+                {
+                  "term": "Permitted Debt",
+                  "definition_text": "Permitted Debt means Indebtedness outstanding on the Closing Date and purchase-money debt not exceeding INR 2 crore in aggregate.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not incur any additional Indebtedness, except Permitted Debt.",
+                  "source_page": 1,
+                  "source_section": "Section 7.1"
+                },
+                {
+                  "quote": "Permitted Debt means Indebtedness outstanding on the Closing Date and purchase-money debt not exceeding INR 2 crore in aggregate.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "aedb2ad2-728a-4598-9b08-06cbeef262aa",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC06",
+        "title": "Asset sale basket with section cross-reference",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "negative_covenant",
+              "obligation_description": "Restriction on Asset Sales",
+              "source_wording": "The Borrower shall not sell or transfer assets except as permitted under Section 7.4, provided that other asset sales do not exceed 10% of Consolidated Total Assets in any fiscal year.",
+              "threshold_value": "10",
+              "comparison_operator": "<=",
+              "threshold_unit": "% of Consolidated Total Assets",
+              "measurement_basis": null,
+              "testing_frequency": "annually",
+              "testing_period": "Any fiscal year",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "other asset sales"
+              ],
+              "exceptions": [
+                "Permitted dispositions include obsolete equipment sold in the ordinary course of business"
+              ],
+              "referenced_definitions": null,
+              "cross_references": [
+                {
+                  "reference_text": "Section 7.4",
+                  "target_description": "Section 7.4 Permitted Dispositions. Permitted dispositions include obsolete equipment sold in the ordinary course of business.",
+                  "source_page": 1,
+                  "source_section": "Section 7.3"
+                }
+              ],
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not sell or transfer assets except as permitted under Section 7.4, provided that other asset sales do not exceed 10% of Consolidated Total Assets in any fiscal year.",
+                  "source_page": 1,
+                  "source_section": "Section 7.3"
+                },
+                {
+                  "quote": "Section 7.4 Permitted Dispositions. Permitted dispositions include obsolete equipment sold in the ordinary course of business.",
+                  "source_page": 2,
+                  "source_section": "Section 7.4"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "8f820f7b-74e3-4182-af39-1f0b91c84651",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC07",
+        "title": "Distribution prohibition with default condition and exception",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "negative_covenant",
+              "obligation_description": "Restriction on Distributions",
+              "source_wording": "The Borrower shall not declare or pay any distribution while an Event of Default has occurred and is continuing, except Permitted Tax Distributions.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": null,
+              "testing_period": null,
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "while an Event of Default has occurred and is continuing"
+              ],
+              "exceptions": [
+                "Permitted Tax Distributions"
+              ],
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not declare or pay any distribution while an Event of Default has occurred and is continuing, except Permitted Tax Distributions.",
+                  "source_page": 1,
+                  "source_section": "Section 7.5"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "bf108328-837f-481e-98eb-470f5b0d940f",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC08",
+        "title": "Quarterly reporting deadline",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "reporting_obligation",
+              "obligation_description": "Quarterly Financial Statements",
+              "source_wording": "Within 45 days after the end of each fiscal quarter, the Borrower shall deliver unaudited consolidated financial statements to the Administrative Agent.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter",
+              "reporting_deadline": "Within 45 days after the end of each fiscal quarter",
+              "deadline_calculation_rule": "45 days after fiscal quarter end",
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "Within 45 days after the end of each fiscal quarter, the Borrower shall deliver unaudited consolidated financial statements to the Administrative Agent.",
+                  "source_page": 1,
+                  "source_section": "Section 6.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "df4c6bb1-f317-4f46-9eb3-f839500b0cd1",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC09",
+        "title": "Annual audited statements with extension exception",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "reporting_obligation",
+              "obligation_description": "Annual Audited Financial Statements",
+              "source_wording": "The Borrower shall deliver audited annual financial statements within 90 days after each fiscal year end; if the auditor is delayed despite the Borrower's diligent efforts, delivery is extended to 120 days.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": "annually",
+              "testing_period": "Each fiscal year",
+              "reporting_deadline": "Within 90 days after each fiscal year end",
+              "deadline_calculation_rule": "120 days after fiscal year end if auditor delay occurs despite diligent efforts",
+              "conditions": [
+                "if the auditor is delayed despite the Borrower's diligent efforts"
+              ],
+              "exceptions": [
+                "delivery is extended to 120 days"
+              ],
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall deliver audited annual financial statements within 90 days after each fiscal year end; if the auditor is delayed despite the Borrower's diligent efforts, delivery is extended to 120 days.",
+                  "source_page": 1,
+                  "source_section": "Section 6.2"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "0ffbc735-7375-4488-8036-a3a305e885a3",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC10",
+        "title": "Affirmative insurance obligation without numeric threshold",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "affirmative_covenant",
+              "obligation_description": "Maintain customary insurance coverage",
+              "source_wording": "The Borrower shall maintain insurance with financially sound and reputable insurers against risks and in amounts customarily maintained by companies conducting similar businesses in similar locations.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": null,
+              "testing_period": null,
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "amounts customarily maintained by companies conducting similar businesses in similar locations"
+              ],
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain insurance with financially sound and reputable insurers against risks and in amounts customarily maintained by companies conducting similar businesses in similar locations.",
+                  "source_page": 1,
+                  "source_section": "Section 5.4"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "14783cc9-491b-486f-bd69-787559149943",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC11",
+        "title": "Compliance obligation and materiality exception",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "affirmative_covenant",
+              "obligation_description": "Compliance with Applicable Laws",
+              "source_wording": "The Borrower shall comply with all applicable laws, except where failure to comply could not reasonably be expected to have a Material Adverse Effect.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": null,
+              "testing_period": null,
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "all applicable laws"
+              ],
+              "exceptions": [
+                "failure to comply could not reasonably be expected to have a Material Adverse Effect"
+              ],
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall comply with all applicable laws, except where failure to comply could not reasonably be expected to have a Material Adverse Effect.",
+                  "source_page": 1,
+                  "source_section": "Section 5.5"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "e793ae22-fc22-43a7-aa14-cfeed162157f",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC12",
+        "title": "Ambiguous approximate leverage statement",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Ambiguous leverage objective requiring review",
+              "source_wording": "The Borrower should maintain its leverage at around 4.0 during the year, subject to discussions with the Lender.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": null,
+              "testing_period": null,
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "subject to discussions with the Lender"
+              ],
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower should maintain its leverage at around 4.0 during the year, subject to discussions with the Lender.",
+                  "source_page": 1,
+                  "source_section": "Section 4.6"
+                }
+              ],
+              "uncertainty_reasons": [
+                "Approximate target 'around 4.0' does not define an exact threshold or comparison operator; human review required."
+              ]
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "7fb82cf7-b36e-4862-bece-bf1599a60cad",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "needs_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC13",
+        "title": "Missing liquidity amount and unresolved definition",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Minimum Liquidity Requirement",
+              "source_wording": "The Borrower shall maintain Liquidity not less than the Required Liquidity Amount at each fiscal quarter end.",
+              "threshold_value": null,
+              "comparison_operator": ">=",
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": [
+                {
+                  "term": "Required Liquidity Amount",
+                  "definition_text": null,
+                  "source_page": null,
+                  "source_section": null
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain Liquidity not less than the Required Liquidity Amount at each fiscal quarter end.",
+                  "source_page": 1,
+                  "source_section": "Section 4.7"
+                }
+              ],
+              "uncertainty_reasons": [
+                "Required Liquidity Amount is not defined in the supplied agreement."
+              ]
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "9550e0bb-ced3-493f-a4a3-7fb36a0d0182",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "needs_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC14",
+        "title": "Amendment changes maximum leverage threshold",
+        "expected_obligations_by_document": {
+          "original.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Maximum Total Leverage Ratio",
+              "source_wording": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+              "threshold_value": "3.50",
+              "comparison_operator": "<=",
+              "threshold_unit": "ratio",
+              "measurement_basis": "Total Debt / EBITDA",
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "as of any fiscal quarter end"
+              ],
+              "exceptions": null,
+              "referenced_definitions": [
+                {
+                  "term": "Total Leverage Ratio",
+                  "definition_text": "Total Leverage Ratio means Total Debt divided by EBITDA.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+                  "source_page": 1,
+                  "source_section": "Section 4.1"
+                },
+                {
+                  "quote": "Total Leverage Ratio means Total Debt divided by EBITDA.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ],
+          "amendment.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Maximum Total Leverage Ratio",
+              "source_wording": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 4.00:1.00.",
+              "threshold_value": "4.00",
+              "comparison_operator": "<=",
+              "threshold_unit": "ratio",
+              "measurement_basis": "Total Debt / EBITDA",
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": [
+                "as of any fiscal quarter end"
+              ],
+              "exceptions": null,
+              "referenced_definitions": [
+                {
+                  "term": "Total Leverage Ratio",
+                  "definition_text": "Total Leverage Ratio means Total Debt divided by EBITDA.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 4.00:1.00.",
+                  "source_page": 1,
+                  "source_section": "Amendment No. 1 — Section 2"
+                },
+                {
+                  "quote": "Total Leverage Ratio means Total Debt divided by EBITDA.",
+                  "source_page": 2,
+                  "source_section": "Section 1.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "original.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "60d52709-e9a3-4b72-8388-420a714aaaeb",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            },
+            "amendment.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "ef45ffca-5f33-4f8e-8525-b69a3b8956eb",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC15",
+        "title": "No financial covenant; reporting-only agreement",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "reporting_obligation",
+              "obligation_description": "Annual Financial Statements",
+              "source_wording": "The Borrower shall deliver annual financial statements within 90 days after each fiscal year end.",
+              "threshold_value": null,
+              "comparison_operator": null,
+              "threshold_unit": null,
+              "measurement_basis": null,
+              "testing_frequency": "annually",
+              "testing_period": "Each fiscal year",
+              "reporting_deadline": "Within 90 days after each fiscal year end",
+              "deadline_calculation_rule": "90 days after fiscal year end",
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall deliver annual financial statements within 90 days after each fiscal year end.",
+                  "source_page": 1,
+                  "source_section": "Section 6.1"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [
+                  {
+                    "candidate_id": "8c28915e-d6c3-48e7-b1f2-2a9fbd6aa580",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "awaiting_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC16",
+        "title": "Duplicate covenant wording on two pages",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Minimum Liquidity Requirement",
+              "source_wording": "The Borrower shall maintain minimum Liquidity of at least INR 8 crore at all times.",
+              "threshold_value": "8",
+              "comparison_operator": ">=",
+              "threshold_unit": "INR crore",
+              "measurement_basis": null,
+              "testing_frequency": "continuous",
+              "testing_period": "At all times",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall maintain minimum Liquidity of at least INR 8 crore at all times.",
+                  "source_page": 1,
+                  "source_section": "Section 4.8"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 2,
+                "candidates": [
+                  {
+                    "candidate_id": "cc4acd27-bf27-4b8f-917b-93f4d805722d",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "needs_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC17",
+        "title": "Long agreement with clause on page twelve",
+        "expected_obligations_by_document": {
+          "agreement.pdf": [
+            {
+              "obligation_category": "financial_covenant",
+              "obligation_description": "Maximum Total Leverage Ratio",
+              "source_wording": "The Borrower shall not permit the Total Leverage Ratio to exceed 4.25:1.00 as of each fiscal quarter end.",
+              "threshold_value": "4.25",
+              "comparison_operator": "<=",
+              "threshold_unit": "ratio",
+              "measurement_basis": "Total Debt / EBITDA",
+              "testing_frequency": "quarterly",
+              "testing_period": "Each fiscal quarter end",
+              "reporting_deadline": null,
+              "deadline_calculation_rule": null,
+              "conditions": null,
+              "exceptions": null,
+              "referenced_definitions": null,
+              "cross_references": null,
+              "supporting_evidence": [
+                {
+                  "quote": "The Borrower shall not permit the Total Leverage Ratio to exceed 4.25:1.00 as of each fiscal quarter end.",
+                  "source_page": 12,
+                  "source_section": "Section 4.9"
+                }
+              ],
+              "uncertainty_reasons": []
+            }
+          ]
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 1,
+              "actual_candidate_count": 1,
+              "pipeline_integrity": {
+                "page_count": 12,
+                "candidates": [
+                  {
+                    "candidate_id": "04de4b4b-29b6-4662-a4ec-3c8b5709c1b1",
+                    "schema_valid": true,
+                    "evidence_valid": true,
+                    "evidence_findings": [],
+                    "relational_evidence_consistent": true,
+                    "origin": "mock_test",
+                    "status": "needs_review"
+                  }
+                ],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC18",
+        "title": "Invalid unreadable PDF is rejected",
+        "expected_obligations_by_document": {
+          "agreement.pdf": []
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 422,
+              "upload_detail": "The uploaded PDF could not be opened.",
+              "matches_expected_error": true
+            }
+          }
+        }
+      },
+      {
+        "case_id": "TC19",
+        "title": "Non-covenant wording that resembles a restriction",
+        "expected_obligations_by_document": {
+          "agreement.pdf": []
+        },
+        "actual_llm_obligations_by_document": null,
+        "mock_pipeline": {
+          "status": "passed",
+          "candidate_outputs_are_ground_truth_test_doubles": true,
+          "accuracy_metrics_computed": false,
+          "documents": {
+            "agreement.pdf": {
+              "upload_status": 201,
+              "process_status": "uploaded",
+              "run_status": "succeeded",
+              "provider": "mock",
+              "model": "mock/deterministic",
+              "expected_candidate_count": 0,
+              "actual_candidate_count": 0,
+              "pipeline_integrity": {
+                "page_count": 1,
+                "candidates": [],
+                "all_schemas_valid": true,
+                "all_evidence_valid": true,
+                "all_relational_evidence_consistent": true
+              }
+            }
+          }
+        }
+      }
+    ],
+    "accuracy_metrics": null,
+    "note": "Mock candidates are hand-authored expected payloads fed through the application pipeline to test schema, page evidence, persistence, review/monitoring/amendment/audit workflow only; this does not measure extraction correctness."
+  },
+  "mock_full_workflow": {
+    "attempted": true,
+    "checks": {
+      "candidate_rejection": true,
+      "rejected_candidate_not_in_register": true,
+      "complete_object_correction": true,
+      "corrected_revision_in_register": true,
+      "human_approval": true,
+      "approved_register": true,
+      "monitoring_period_created": true,
+      "monitoring_update": true,
+      "comparison_created": true,
+      "threshold_change_detected": true,
+      "amendment_review_accepted": true,
+      "audit_events": true
+    },
+    "all_passed": true
+  },
+  "metrics_explanation": {
+    "precision_recall_f1": "One-to-one matched obligations over predicted and expected obligations; unmatched duplicates count as false positives.",
+    "threshold_accuracy": "Exact Decimal numeric threshold equality for matched obligations.",
+    "type_operator_unit_frequency_deadline": "Field equality with numeric string/number normalization and normalized phrase comparison where applicable.",
+    "evidence_quote_accuracy": "Predicted evidence quote must exist on its cited source PDF page and overlap the expected clause wording.",
+    "page_citation_accuracy": "Evidence quote must be valid on a ground-truth cited page and match expected clause wording.",
+    "unsupported_information_rate": "Populated structured claims that disagree with a non-null ground truth, appear where ground truth is null, or belong to unmatched extra obligations divided by populated claims.",
+    "ambiguity_escalation": "Ambiguous expected obligations whose prediction retains uncertainty reasons or validation findings divided by ambiguous matched obligations."
+  },
+  "overall_real_metrics": null,
+  "evaluation_note": "Real-provider result is based on a completed HTTP 402 response. Mock results below are deterministic pipeline/workflow checks only and are not LLM accuracy measurements.",
+  "dataset_gold_evidence_count": 26,
+  "evaluation_attempt_history": [
+    {
+      "result": "provider_error",
+      "case_id": "TC01",
+      "http_status": 402,
+      "error_code": "provider_insufficient_credits",
+      "provider_response_completed": true,
+      "model_completion_received": false
+    },
+    {
+      "result": "interrupted_without_recorded_response",
+      "case_id": "TC01",
+      "provider_response_completed": false,
+      "note": "A later combined verification rerun remained pending and was interrupted; not counted as a completed extraction."
+    }
+  ]
+}

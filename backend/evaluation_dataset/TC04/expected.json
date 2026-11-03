@@ -1,0 +1,35 @@
+{
+  "case_id": "TC04",
+  "title": "Annual debt-service coverage",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Minimum Debt Service Coverage Ratio",
+        "source_wording": "The Borrower shall maintain a Debt Service Coverage Ratio of at least 1.25x for each fiscal year, tested on an annual basis.",
+        "threshold_value": "1.25",
+        "comparison_operator": ">=",
+        "threshold_unit": "x",
+        "measurement_basis": "Cash flow available for debt service / scheduled debt service",
+        "testing_frequency": "annually",
+        "testing_period": "Each fiscal year",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall maintain a Debt Service Coverage Ratio of at least 1.25x for each fiscal year, tested on an annual basis.",
+            "source_page": 1,
+            "source_section": "Section 4.4"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

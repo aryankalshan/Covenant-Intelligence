@@ -1,0 +1,9 @@
+{
+  "case_id": "TC19",
+  "title": "Non-covenant wording that resembles a restriction",
+  "expected_by_document": {
+    "agreement.pdf": []
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

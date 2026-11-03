@@ -1,0 +1,12 @@
+{
+  "case_id": "TC08",
+  "title": "Quarterly reporting deadline",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 6.1 Quarterly Statements. Within 45 days after the end of each fiscal quarter, the Borrower shall deliver unaudited consolidated financial statements to the Administrative Agent."
+      ]
+    }
+  }
+}

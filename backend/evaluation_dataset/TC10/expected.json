@@ -1,0 +1,37 @@
+{
+  "case_id": "TC10",
+  "title": "Affirmative insurance obligation without numeric threshold",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "affirmative_covenant",
+        "obligation_description": "Maintain customary insurance coverage",
+        "source_wording": "The Borrower shall maintain insurance with financially sound and reputable insurers against risks and in amounts customarily maintained by companies conducting similar businesses in similar locations.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": null,
+        "testing_period": null,
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "amounts customarily maintained by companies conducting similar businesses in similar locations"
+        ],
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall maintain insurance with financially sound and reputable insurers against risks and in amounts customarily maintained by companies conducting similar businesses in similar locations.",
+            "source_page": 1,
+            "source_section": "Section 5.4"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

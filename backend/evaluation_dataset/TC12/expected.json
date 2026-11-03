@@ -1,0 +1,39 @@
+{
+  "case_id": "TC12",
+  "title": "Ambiguous approximate leverage statement",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Ambiguous leverage objective requiring review",
+        "source_wording": "The Borrower should maintain its leverage at around 4.0 during the year, subject to discussions with the Lender.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": null,
+        "testing_period": null,
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "subject to discussions with the Lender"
+        ],
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower should maintain its leverage at around 4.0 during the year, subject to discussions with the Lender.",
+            "source_page": 1,
+            "source_section": "Section 4.6"
+          }
+        ],
+        "uncertainty_reasons": [
+          "Approximate target 'around 4.0' does not define an exact threshold or comparison operator; human review required."
+        ]
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

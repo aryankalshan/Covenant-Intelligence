@@ -1,0 +1,12 @@
+{
+  "case_id": "TC15",
+  "title": "No financial covenant; reporting-only agreement",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 6.1 Reporting. The Borrower shall deliver annual financial statements within 90 days after each fiscal year end. No financial maintenance covenant applies under this Agreement."
+      ]
+    }
+  }
+}

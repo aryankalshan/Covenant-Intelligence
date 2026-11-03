@@ -1,0 +1,13 @@
+{
+  "case_id": "TC16",
+  "title": "Duplicate covenant wording on two pages",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 4.8. The Borrower shall maintain minimum Liquidity of at least INR 8 crore at all times.",
+        "Section 4.8 (continued). The Borrower shall maintain minimum Liquidity of at least INR 8 crore at all times."
+      ]
+    }
+  }
+}

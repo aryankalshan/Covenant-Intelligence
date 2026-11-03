@@ -1,0 +1,39 @@
+{
+  "case_id": "TC07",
+  "title": "Distribution prohibition with default condition and exception",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "negative_covenant",
+        "obligation_description": "Restriction on Distributions",
+        "source_wording": "The Borrower shall not declare or pay any distribution while an Event of Default has occurred and is continuing, except Permitted Tax Distributions.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": null,
+        "testing_period": null,
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "while an Event of Default has occurred and is continuing"
+        ],
+        "exceptions": [
+          "Permitted Tax Distributions"
+        ],
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall not declare or pay any distribution while an Event of Default has occurred and is continuing, except Permitted Tax Distributions.",
+            "source_page": 1,
+            "source_section": "Section 7.5"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

@@ -1,0 +1,10 @@
+{
+  "case_id": "TC18",
+  "title": "Invalid unreadable PDF is rejected",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": null
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "case_id": "TC02",
+  "title": "Interest coverage and four-quarter testing period",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Minimum Interest Coverage Ratio",
+        "source_wording": "The Borrower shall maintain an Interest Coverage Ratio of not less than 3.00:1.00 for each Testing Period.",
+        "threshold_value": "3.00",
+        "comparison_operator": ">=",
+        "threshold_unit": "ratio",
+        "measurement_basis": "EBITDA / Interest Expense",
+        "testing_frequency": "quarterly",
+        "testing_period": "The four consecutive fiscal quarters ending on a fiscal quarter end",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": [
+          {
+            "term": "Interest Coverage Ratio",
+            "definition_text": "Interest Coverage Ratio means EBITDA divided by Interest Expense.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          },
+          {
+            "term": "Testing Period",
+            "definition_text": "Testing Period means the four consecutive fiscal quarters ending on a fiscal quarter end.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          }
+        ],
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall maintain an Interest Coverage Ratio of not less than 3.00:1.00 for each Testing Period.",
+            "source_page": 1,
+            "source_section": "Section 4.2"
+          },
+          {
+            "quote": "Interest Coverage Ratio means EBITDA divided by Interest Expense.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          },
+          {
+            "quote": "Testing Period means the four consecutive fiscal quarters ending on a fiscal quarter end.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

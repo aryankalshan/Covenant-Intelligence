@@ -1,0 +1,12 @@
+{
+  "case_id": "TC10",
+  "title": "Affirmative insurance obligation without numeric threshold",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 5.4 Insurance. The Borrower shall maintain insurance with financially sound and reputable insurers against risks and in amounts customarily maintained by companies conducting similar businesses in similar locations."
+      ]
+    }
+  }
+}

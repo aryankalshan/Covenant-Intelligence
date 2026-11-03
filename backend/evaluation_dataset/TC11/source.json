@@ -1,0 +1,12 @@
+{
+  "case_id": "TC11",
+  "title": "Compliance obligation and materiality exception",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 5.5 Compliance with Laws. The Borrower shall comply with all applicable laws, except where failure to comply could not reasonably be expected to have a Material Adverse Effect."
+      ]
+    }
+  }
+}

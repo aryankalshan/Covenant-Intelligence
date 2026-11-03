@@ -1,0 +1,12 @@
+{
+  "case_id": "TC19",
+  "title": "Non-covenant wording that resembles a restriction",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 9.1 Interpretation. Nothing in this section shall be construed as obligating the Borrower to make any distribution or incur any debt, and the Lender may elect not to exercise any right."
+      ]
+    }
+  }
+}

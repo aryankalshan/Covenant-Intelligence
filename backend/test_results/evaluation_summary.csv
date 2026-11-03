@@ -1,0 +1,20 @@
+case_id,title,expected_obligations,real_status,real_error_code,real_http_status,real_candidates,real_precision,real_recall,real_f1,mock_pipeline_status,mock_candidates,mock_evidence_valid
+TC01,Quarterly maximum leverage with remote definition,1,provider_blocked,provider_insufficient_credits,402,0,,,,passed,1,True
+TC02,Interest coverage and four-quarter testing period,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC03,Minimum liquidity in INR crore,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC04,Annual debt-service coverage,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC05,Additional debt restriction and permitted-debt exception,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC06,Asset sale basket with section cross-reference,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC07,Distribution prohibition with default condition and exception,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC08,Quarterly reporting deadline,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC09,Annual audited statements with extension exception,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC10,Affirmative insurance obligation without numeric threshold,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC11,Compliance obligation and materiality exception,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC12,Ambiguous approximate leverage statement,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC13,Missing liquidity amount and unresolved definition,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC14,Amendment changes maximum leverage threshold,2,not_attempted_after_provider_error,,,,,,,passed,2,True
+TC15,No financial covenant; reporting-only agreement,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC16,Duplicate covenant wording on two pages,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC17,Long agreement with clause on page twelve,1,not_attempted_after_provider_error,,,,,,,passed,1,True
+TC18,Invalid unreadable PDF is rejected,0,not_attempted_after_provider_error,,,,,,,passed,0,True
+TC19,Non-covenant wording that resembles a restriction,0,not_attempted_after_provider_error,,,,,,,passed,0,True

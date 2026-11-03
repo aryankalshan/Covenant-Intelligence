@@ -1,0 +1,35 @@
+{
+  "case_id": "TC17",
+  "title": "Long agreement with clause on page twelve",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Maximum Total Leverage Ratio",
+        "source_wording": "The Borrower shall not permit the Total Leverage Ratio to exceed 4.25:1.00 as of each fiscal quarter end.",
+        "threshold_value": "4.25",
+        "comparison_operator": "<=",
+        "threshold_unit": "ratio",
+        "measurement_basis": "Total Debt / EBITDA",
+        "testing_frequency": "quarterly",
+        "testing_period": "Each fiscal quarter end",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall not permit the Total Leverage Ratio to exceed 4.25:1.00 as of each fiscal quarter end.",
+            "source_page": 12,
+            "source_section": "Section 4.9"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

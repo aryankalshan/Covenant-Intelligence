@@ -1,0 +1,12 @@
+{
+  "case_id": "TC03",
+  "title": "Minimum liquidity in INR crore",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 4.3 Minimum Liquidity. The Borrower shall maintain Liquidity of at least INR 12 crore at all times. Liquidity means unrestricted cash and cash equivalents."
+      ]
+    }
+  }
+}

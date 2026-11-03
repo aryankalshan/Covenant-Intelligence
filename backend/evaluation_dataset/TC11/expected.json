@@ -1,0 +1,39 @@
+{
+  "case_id": "TC11",
+  "title": "Compliance obligation and materiality exception",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "affirmative_covenant",
+        "obligation_description": "Compliance with Applicable Laws",
+        "source_wording": "The Borrower shall comply with all applicable laws, except where failure to comply could not reasonably be expected to have a Material Adverse Effect.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": null,
+        "testing_period": null,
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "all applicable laws"
+        ],
+        "exceptions": [
+          "failure to comply could not reasonably be expected to have a Material Adverse Effect"
+        ],
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall comply with all applicable laws, except where failure to comply could not reasonably be expected to have a Material Adverse Effect.",
+            "source_page": 1,
+            "source_section": "Section 5.5"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

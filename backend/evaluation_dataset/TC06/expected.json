@@ -1,0 +1,51 @@
+{
+  "case_id": "TC06",
+  "title": "Asset sale basket with section cross-reference",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "negative_covenant",
+        "obligation_description": "Restriction on Asset Sales",
+        "source_wording": "The Borrower shall not sell or transfer assets except as permitted under Section 7.4, provided that other asset sales do not exceed 10% of Consolidated Total Assets in any fiscal year.",
+        "threshold_value": "10",
+        "comparison_operator": "<=",
+        "threshold_unit": "% of Consolidated Total Assets",
+        "measurement_basis": null,
+        "testing_frequency": "annually",
+        "testing_period": "Any fiscal year",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "other asset sales"
+        ],
+        "exceptions": [
+          "Permitted dispositions include obsolete equipment sold in the ordinary course of business"
+        ],
+        "referenced_definitions": null,
+        "cross_references": [
+          {
+            "reference_text": "Section 7.4",
+            "target_description": "Section 7.4 Permitted Dispositions. Permitted dispositions include obsolete equipment sold in the ordinary course of business.",
+            "source_page": 1,
+            "source_section": "Section 7.3"
+          }
+        ],
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall not sell or transfer assets except as permitted under Section 7.4, provided that other asset sales do not exceed 10% of Consolidated Total Assets in any fiscal year.",
+            "source_page": 1,
+            "source_section": "Section 7.3"
+          },
+          {
+            "quote": "Section 7.4 Permitted Dispositions. Permitted dispositions include obsolete equipment sold in the ordinary course of business.",
+            "source_page": 2,
+            "source_section": "Section 7.4"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

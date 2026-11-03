@@ -1,0 +1,60 @@
+{
+  "case_id": "TC01",
+  "title": "Quarterly maximum leverage with remote definition",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Maximum Total Leverage Ratio",
+        "source_wording": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+        "threshold_value": "3.50",
+        "comparison_operator": "<=",
+        "threshold_unit": "ratio",
+        "measurement_basis": "Total Debt / EBITDA",
+        "testing_frequency": "quarterly",
+        "testing_period": "Each fiscal quarter end",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": [
+          "as of any fiscal quarter end"
+        ],
+        "exceptions": null,
+        "referenced_definitions": [
+          {
+            "term": "Total Leverage Ratio",
+            "definition_text": "Total Leverage Ratio means Total Debt divided by EBITDA for the applicable Testing Period.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          },
+          {
+            "term": "Testing Period",
+            "definition_text": "Testing Period means each period of four consecutive fiscal quarters.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          }
+        ],
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+            "source_page": 1,
+            "source_section": "Section 4.1"
+          },
+          {
+            "quote": "Total Leverage Ratio means Total Debt divided by EBITDA for the applicable Testing Period.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          },
+          {
+            "quote": "Testing Period means each period of four consecutive fiscal quarters.",
+            "source_page": 2,
+            "source_section": "Section 1.1"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

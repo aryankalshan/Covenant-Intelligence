@@ -1,0 +1,44 @@
+{
+  "case_id": "TC13",
+  "title": "Missing liquidity amount and unresolved definition",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Minimum Liquidity Requirement",
+        "source_wording": "The Borrower shall maintain Liquidity not less than the Required Liquidity Amount at each fiscal quarter end.",
+        "threshold_value": null,
+        "comparison_operator": ">=",
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": "quarterly",
+        "testing_period": "Each fiscal quarter end",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": [
+          {
+            "term": "Required Liquidity Amount",
+            "definition_text": null,
+            "source_page": null,
+            "source_section": null
+          }
+        ],
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall maintain Liquidity not less than the Required Liquidity Amount at each fiscal quarter end.",
+            "source_page": 1,
+            "source_section": "Section 4.7"
+          }
+        ],
+        "uncertainty_reasons": [
+          "Required Liquidity Amount is not defined in the supplied agreement."
+        ]
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

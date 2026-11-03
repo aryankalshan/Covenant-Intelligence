@@ -1,0 +1,20 @@
+{
+  "case_id": "TC14",
+  "title": "Amendment changes maximum leverage threshold",
+  "documents": {
+    "original.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 4.1. The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+        "Section 1.1 Definitions. Total Leverage Ratio means Total Debt divided by EBITDA."
+      ]
+    },
+    "amendment.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Amendment No. 1 — Section 2. The parties amend Section 4.1 by replacing '3.50:1.00' with '4.00:1.00'. The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 4.00:1.00.",
+        "Section 1.1 Definitions. Total Leverage Ratio means Total Debt divided by EBITDA."
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: covenant_intelligence
+      POSTGRES_USER: covenant
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U covenant -d covenant_intelligence"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://covenant:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/covenant_intelligence
+      STORAGE_DIR: /app/storage
+      FRONTEND_PORT: ${FRONTEND_PORT:-5173}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-}
+      OPENROUTER_BASE_URL: ${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1}
+    ports:
+      - "8000:8000"
+    volumes:
+      - document_storage:/app/storage
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    image: node:22-alpine
+    working_dir: /workspace
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    environment:
+      FRONTEND_PORT: ${FRONTEND_PORT:-5173}
+    ports:
+      - "${FRONTEND_PORT:-5173}:${FRONTEND_PORT:-5173}"
+    volumes:
+      - ./frontend:/workspace
+      - frontend_node_modules:/workspace/node_modules
+    depends_on:
+      - api
+volumes:
+  postgres_data:
+  document_storage:
+  frontend_node_modules:

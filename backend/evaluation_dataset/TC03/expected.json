@@ -1,0 +1,35 @@
+{
+  "case_id": "TC03",
+  "title": "Minimum liquidity in INR crore",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "financial_covenant",
+        "obligation_description": "Minimum Liquidity Requirement",
+        "source_wording": "The Borrower shall maintain Liquidity of at least INR 12 crore at all times.",
+        "threshold_value": "12",
+        "comparison_operator": ">=",
+        "threshold_unit": "INR crore",
+        "measurement_basis": "Unrestricted cash and cash equivalents",
+        "testing_frequency": "continuous",
+        "testing_period": "At all times",
+        "reporting_deadline": null,
+        "deadline_calculation_rule": null,
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "The Borrower shall maintain Liquidity of at least INR 12 crore at all times.",
+            "source_page": 1,
+            "source_section": "Section 4.3"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

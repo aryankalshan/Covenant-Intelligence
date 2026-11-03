@@ -1,0 +1,13 @@
+{
+  "case_id": "TC01",
+  "title": "Quarterly maximum leverage with remote definition",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "ASTERION SYNTHETIC HOLDINGS LTD — CREDIT AGREEMENT\nSection 4.1 Financial Covenant. The Borrower shall not permit the Total Leverage Ratio as of any fiscal quarter end to exceed 3.50:1.00.",
+        "Section 1.1 Definitions. Total Leverage Ratio means Total Debt divided by EBITDA for the applicable Testing Period. Testing Period means each period of four consecutive fiscal quarters."
+      ]
+    }
+  }
+}

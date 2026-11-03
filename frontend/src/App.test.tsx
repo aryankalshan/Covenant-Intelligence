@@ -1,0 +1,205 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import App from "./App";
+
+afterEach(() => { cleanup(); vi.restoreAllMocks(); localStorage.removeItem("devUser"); });
+
+describe("PDF ingestion workflow", () => {
+  it("creates an agreement, uploads a PDF, processes it, and displays extracted page text", async () => {
+    const agreement = { id: "agreement-1", name: "Synthetic Facility", counterparty: "Example Corp", created_at: "2026-11-03T00:00:00Z" };
+    const version = { id: "version-1", agreement_id: "agreement-1", version_label: "Original", source_kind: "synthetic", original_filename: "facility.pdf", sha256: "abc", page_count: 1, status: "processed" };
+    const pageSummary = [{ page_number: 1, has_text: true, text_sha256: "def", warnings: [] }];
+    const page = { ...pageSummary[0], text: "Synthetic credit agreement page text." };
+    const extractionRun = { id: "run-1", agreement_version_id: "version-1", status: "succeeded", chunk_count: 3, processed_chunk_count: 3, candidate_count: 1, validation_findings: [], error_code: null, error_summary: null };
+    const queuedRun = { ...extractionRun, status: "queued", processed_chunk_count: 0, candidate_count: 0 };
+    const runningRun = { ...extractionRun, status: "running", processed_chunk_count: 1, candidate_count: 0 };
+    let extractionPolls = 0;
+    const candidate = { id: "candidate-1", extraction_run_id: "run-1", extraction_origin: "mock_test", status: "awaiting_review", validation_status: "valid", validation_findings: [], canonical_payload: { obligation_category: "financial_covenant", obligation_description: "Maximum leverage ratio", threshold_value: "3.50", threshold_unit: "ratio", comparison_operator: "<=", reporting_deadline: null, deadline_calculation_rule: null, referenced_definitions: [], uncertainty_reasons: [] }, evidence: [{ id: "evidence-1", page_number: 1, quote: "Synthetic threshold clause", source_section: null }] };
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements") && init?.method === "POST") return Response.json(agreement, { status: 201 });
+      if (url.endsWith("/agreements")) return Response.json([agreement]);
+      if (url.endsWith("/agreements/agreement-1/versions") && init?.method === "POST") return Response.json(version, { status: 201 });
+      if (url.endsWith("/agreements/agreement-1/versions")) return Response.json([version]);
+      if (url.endsWith("/versions/version-1/process")) return Response.json({ status: "processed", page_count: 1 }, { status: 202 });
+      if (url.endsWith("/versions/version-1/pages/1")) return Response.json(page);
+      if (url.endsWith("/versions/version-1/pages")) return Response.json(pageSummary);
+      if (url.endsWith("/versions/version-1/extraction-runs")) return Response.json(queuedRun, { status: 202 });
+      if (url.endsWith("/extraction-runs/run-1")) return Response.json(extractionPolls++ === 0 ? runningRun : extractionRun);
+      if (url.endsWith("/extraction-runs/run-1/candidates")) return Response.json([candidate]);
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+
+    render(<App />);
+    const user = userEvent.setup();
+    expect(screen.getByLabelText("Development identity")).toHaveValue("contributor");
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(new Headers(fetchMock.mock.calls[0][1]?.headers).get("X-Dev-User")).toBe("contributor");
+    await user.type(screen.getByLabelText("Agreement name"), "Synthetic Facility");
+    await user.type(screen.getByLabelText("Counterparty"), "Example Corp");
+    await user.click(screen.getByRole("button", { name: "Create agreement" }));
+    await screen.findByRole("option", { name: "Synthetic Facility" });
+
+    const pdf = new File(["%PDF-demo"], "facility.pdf", { type: "application/pdf" });
+    await user.upload(screen.getByLabelText("PDF file"), pdf);
+    await user.click(screen.getByRole("button", { name: "Upload and extract text" }));
+
+    await user.click(await screen.findByRole("button", { name: /Page 1/ }));
+    expect(await screen.findByText("Synthetic credit agreement page text.")).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining("/versions/version-1/process"), expect.objectContaining({ method: "POST" }));
+    await user.click(screen.getByRole("button", { name: "Extract covenants" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Extracting 1/3 chunks…" })).toBeDisabled());
+    expect(await screen.findByText("Maximum leverage ratio")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.filter(([url, init]) => String(url).endsWith("/versions/version-1/extraction-runs") && init?.method === "POST")).toHaveLength(1);
+    expect(screen.getByText(/Mock provider test results · not generated by a live AI provider/)).toBeInTheDocument();
+    expect(screen.getByText(/Draft candidates awaiting human review/)).toBeInTheDocument();
+    expect(screen.getByText(/Synthetic threshold clause/)).toBeInTheDocument();
+  });
+
+  it("shows the real provider insufficient-credit error without substitute candidates", async () => {
+    const run = { id: "run-402", agreement_version_id: "version-402", status: "queued", provider: null, model: null, chunk_count: 1, unprocessed_chunk_count: 0, screened_out_chunk_count: 0, processed_chunk_count: 0, candidate_count: 0, validation_findings: [], error_code: null, error_summary: null };
+    const failedRun = { ...run, status: "partial", processed_chunk_count: 1, error_code: "provider_insufficient_credits", error_summary: "OpenRouter reports insufficient credits (HTTP 402). Add credits or review account limits.", validation_findings: [{ code: "provider_insufficient_credits", message: "OpenRouter reports insufficient credits (HTTP 402). Add credits or review account limits.", http_status: 402 }] };
+    const version = { id: "version-402", agreement_id: "agreement-402", version_label: "Synthetic Original", source_kind: "synthetic", original_filename: "synthetic.pdf", sha256: "hash", page_count: 1, status: "processed" };
+    vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([{ id: "agreement-402", name: "Synthetic Credit Agreement", counterparty: "Synthetic Borrower", created_at: "2026-11-03T00:00:00Z" }]);
+      if (url.endsWith("/agreements/agreement-402/versions")) return Response.json([version]);
+      if (url.endsWith("/versions/version-402/pages")) return Response.json([{ page_number: 1, has_text: true, text_sha256: "hash", warnings: [] }]);
+      if (url.endsWith("/versions/version-402/extraction-runs") && init?.method === "POST") return Response.json(run, { status: 202 });
+      if (url.endsWith("/extraction-runs/run-402")) return Response.json(failedRun);
+      if (url.endsWith("/extraction-runs/run-402/candidates")) return Response.json([]);
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.selectOptions(await screen.findByLabelText("Agreement"), "agreement-402");
+    await waitFor(() => expect(screen.getByRole("button", { name: "Extract covenants" })).toBeEnabled());
+    await user.click(screen.getByRole("button", { name: "Extract covenants" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("insufficient credits (HTTP 402)");
+    expect(screen.queryByText("Draft candidates awaiting human review")).not.toBeInTheDocument();
+  });
+});
+
+describe("review and monitoring workflows", () => {
+  const payload = {
+    obligation_category: "reporting_obligation", obligation_description: "Quarterly certificate",
+    source_wording: "Within 30 days after each fiscal quarter end, deliver a quarterly compliance certificate.",
+    threshold_value: null, comparison_operator: null, threshold_unit: null, measurement_basis: null,
+    testing_frequency: "quarterly", testing_period: "Each fiscal quarter", reporting_deadline: "Within 30 days",
+    deadline_calculation_rule: "Within 30 days after each fiscal quarter end", conditions: null, exceptions: null,
+    referenced_definitions: null, cross_references: null,
+    supporting_evidence: [{ quote: "Within 30 days after each fiscal quarter end, deliver a quarterly compliance certificate.", source_page: 1, source_section: "Section 5.1" }],
+    uncertainty_reasons: [],
+  };
+  const candidate = { id: "candidate-1", extraction_run_id: "run-1", status: "awaiting_review", validation_status: "valid", validation_findings: [], canonical_payload: payload, evidence: [{ id: "evidence-1", page_number: 1, quote: payload.source_wording, source_section: "Section 5.1" }], agreement_id: "agreement-1" };
+  const obligation = { id: "obligation-1", agreement_id: "agreement-1", agreement_name: "Synthetic Facility", lifecycle_status: "active", current_revision_id: "revision-1", revision_number: 1, approved_at: "2026-11-03T00:00:00Z", canonical_payload: payload };
+
+  it("reviews a candidate, approves a complete payload, and displays the approved register entry", async () => {
+    localStorage.setItem("devUser", "reviewer");
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([{ id: "agreement-1", name: "Synthetic Facility", counterparty: null, created_at: "2026-11-03T00:00:00Z" }]);
+      if (url.endsWith("/review/candidates")) return Response.json([candidate]);
+      if (url.endsWith("/review/candidates/candidate-1")) return Response.json({ ...candidate, source_pages: [{ page_number: 1, text: payload.source_wording }], agreement: { id: "agreement-1", name: "Synthetic Facility", version_id: "version-1", version_label: "Original" } });
+      if (url.endsWith("/candidates/candidate-1/review-decisions") && init?.method === "POST") return Response.json({ decision_id: "decision-1", obligation_id: "obligation-1", revision_id: "revision-1" }, { status: 201 });
+      if (url.includes("/obligations?")) return Response.json([obligation]);
+      if (url.endsWith("/obligations/obligation-1/revisions")) return Response.json([{ id: "revision-1", revision_number: 1, status: "approved", approved_at: "2026-11-03T00:00:00Z", evidence: candidate.evidence }]);
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Review Queue" }));
+    await user.click(await screen.findByRole("button", { name: /Quarterly certificate/ }));
+    expect(await screen.findByText("Page 1")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Approve" }));
+    expect(await screen.findByRole("status")).toHaveTextContent("Candidate approved.");
+    expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining("/candidates/candidate-1/review-decisions"), expect.objectContaining({ method: "POST" }));
+    await user.click(screen.getByRole("button", { name: "Covenant Register" }));
+    expect(await screen.findByText("Quarterly certificate")).toBeInTheDocument();
+  });
+
+  it("initializes a monitoring period and records a submitted status", async () => {
+    const period = { id: "period-1", obligation_id: "obligation-1", obligation_revision_id: "revision-1", period_label: "FY2026 Q1", period_start: "2026-01-01", period_end: "2026-03-31", due_date: "2026-04-30", deadline_rule: payload.deadline_calculation_rule, status: "upcoming", is_overdue: false, updates: [] };
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([{ id: "agreement-1", name: "Synthetic Facility", counterparty: null, created_at: "2026-11-03T00:00:00Z" }]);
+      if (url.endsWith("/monitoring-periods")) return Response.json([period]);
+      if (url.includes("/obligations?")) return Response.json([obligation]);
+      if (url.endsWith("/obligations/obligation-1/monitoring-periods") && init?.method === "POST") return Response.json(period, { status: 201 });
+      if (url.endsWith("/monitoring-periods/period-1/updates") && init?.method === "POST") return Response.json({ ...period, status: "submitted", updates: [{ status: "submitted" }] }, { status: 201 });
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Obligation Tracker" }));
+    await user.selectOptions(await screen.findByLabelText("Approved obligation"), "obligation-1");
+    await user.type(screen.getByLabelText("Period label"), "FY2026 Q1");
+    await user.type(screen.getByLabelText("Period start"), "2026-01-01");
+    await user.type(screen.getByLabelText("Period end"), "2026-03-31");
+    await user.click(screen.getByRole("button", { name: "Create monitoring period" }));
+    expect(await screen.findByText("FY2026 Q1")).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText("Update FY2026 Q1"), "submitted");
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledWith(expect.stringContaining("/monitoring-periods/period-1/updates"), expect.objectContaining({ method: "POST" })));
+  });
+
+  it("compares an extracted amendment and displays the proposal for human review", async () => {
+    const versions = [
+      { id: "amendment-1", agreement_id: "agreement-1", version_label: "Amendment", source_kind: "synthetic", original_filename: "amendment.pdf", sha256: "a", page_count: 1, status: "processed" },
+      { id: "version-1", agreement_id: "agreement-1", version_label: "Original", source_kind: "synthetic", original_filename: "original.pdf", sha256: "b", page_count: 1, status: "processed" },
+    ];
+    const run = { id: "run-1", agreement_version_id: "amendment-1", status: "succeeded", chunk_count: 1, unprocessed_chunk_count: 0, screened_out_chunk_count: 0, processed_chunk_count: 1, candidate_count: 1, validation_findings: [], error_code: null, error_summary: null };
+    const item = { id: "item-1", change_type: "changed", prior_obligation_revision_id: "revision-1", candidate_id: "candidate-2", proposed_changes: { threshold_value: { previous: "3.50", proposed: "4.00" } }, rationale: "Exact category and name match.", status: "pending" };
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([{ id: "agreement-1", name: "Synthetic Facility", counterparty: null, created_at: "2026-11-03T00:00:00Z" }]);
+      if (url.endsWith("/agreements/agreement-1/versions")) return Response.json(versions);
+      if (url.endsWith("/agreements/agreement-1/amendment-comparisons") && init?.method !== "POST") return Response.json([]);
+      if (url.endsWith("/versions/amendment-1/extraction-runs")) return Response.json(run, { status: 202 });
+      if (url.endsWith("/agreements/agreement-1/amendment-comparisons")) return Response.json({ id: "comparison-1", status: "ready_for_review", items: [item] }, { status: 201 });
+      if (url.endsWith("/comparison-items/item-1/decisions")) return Response.json({ item_id: "item-1", status: "accepted", comparison_status: "completed" }, { status: 201 });
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Amendment Comparison" }));
+    await user.selectOptions(screen.getByLabelText("Comparison agreement"), "agreement-1");
+    await user.click(await screen.findByRole("button", { name: "Extract amendment & compare" }));
+    expect(await screen.findByText("Exact category and name match.")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([input]) => String(input).endsWith("/agreements/agreement-1/amendment-comparisons"))).toBe(true);
+  });
+
+  it("loads an existing synthetic amendment proposal without starting a new extraction", async () => {
+    const versions = [
+      { id: "amendment-1", agreement_id: "agreement-1", version_label: "Synthetic Amendment 1", source_kind: "synthetic", original_filename: "amendment.pdf", sha256: "a", page_count: 1, status: "processed" },
+      { id: "original-1", agreement_id: "agreement-1", version_label: "Synthetic Original", source_kind: "synthetic", original_filename: "original.pdf", sha256: "b", page_count: 10, status: "processed" },
+    ];
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([{ id: "agreement-1", name: "[SYNTHETIC DEMO] Northstar Components Pvt Ltd Credit Facility", counterparty: "Fictional Lender", created_at: "2026-11-03T00:00:00Z" }]);
+      if (url.endsWith("/agreements/agreement-1/versions")) return Response.json(versions);
+      if (url.endsWith("/agreements/agreement-1/amendment-comparisons")) return Response.json([{ id: "comparison-1", status: "ready_for_review", items: [{ id: "item-1", change_type: "changed", status: "pending", proposed_changes: { threshold_value: { previous: "3.50", proposed: "4.00" } }, rationale: "Synthetic demo proposal; reviewer decision required." }] }]);
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Amendment Comparison" }));
+    await user.selectOptions(screen.getByLabelText("Comparison agreement"), "agreement-1");
+    expect(await screen.findByText("Synthetic demo proposal; reviewer decision required.")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([input]) => String(input).includes("/extraction-runs"))).toBe(false);
+  });
+
+  it("shows recorded audit events from the API", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
+      const url = String(input);
+      if (url.endsWith("/agreements")) return Response.json([]);
+      if (url.endsWith("/audit-events")) return Response.json([{ id: "event-1", actor_user_id: "reviewer", action: "candidate_approved", entity_type: "obligation", entity_id: "obligation-1", occurred_at: "2026-11-03T00:00:00Z", summary: { revision_id: "revision-1" } }]);
+      throw new Error(`Unexpected fetch: ${url}`);
+    });
+    render(<App />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Audit History" }));
+    expect(await screen.findByText("candidate_approved")).toBeInTheDocument();
+    expect(fetchMock.mock.calls.some(([input]) => String(input).endsWith("/audit-events"))).toBe(true);
+  });
+});

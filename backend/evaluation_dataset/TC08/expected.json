@@ -1,0 +1,35 @@
+{
+  "case_id": "TC08",
+  "title": "Quarterly reporting deadline",
+  "expected_by_document": {
+    "agreement.pdf": [
+      {
+        "obligation_category": "reporting_obligation",
+        "obligation_description": "Quarterly Financial Statements",
+        "source_wording": "Within 45 days after the end of each fiscal quarter, the Borrower shall deliver unaudited consolidated financial statements to the Administrative Agent.",
+        "threshold_value": null,
+        "comparison_operator": null,
+        "threshold_unit": null,
+        "measurement_basis": null,
+        "testing_frequency": "quarterly",
+        "testing_period": "Each fiscal quarter",
+        "reporting_deadline": "Within 45 days after the end of each fiscal quarter",
+        "deadline_calculation_rule": "45 days after fiscal quarter end",
+        "conditions": null,
+        "exceptions": null,
+        "referenced_definitions": null,
+        "cross_references": null,
+        "supporting_evidence": [
+          {
+            "quote": "Within 45 days after the end of each fiscal quarter, the Borrower shall deliver unaudited consolidated financial statements to the Administrative Agent.",
+            "source_page": 1,
+            "source_section": "Section 6.1"
+          }
+        ],
+        "uncertainty_reasons": []
+      }
+    ]
+  },
+  "expected_error": null,
+  "expected_amendment_change": null
+}

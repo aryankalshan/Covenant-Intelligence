@@ -1,0 +1,23 @@
+{
+  "case_id": "TC17",
+  "title": "Long agreement with clause on page twelve",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 1.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 2.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 3.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 4.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 5.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 6.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 7.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 8.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 9.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 10.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 11.1 General Terms. This page contains synthetic administrative provisions regarding notices, counterparts, governing law, and other standard contractual mechanics.",
+        "Section 4.9 Financial Covenant. The Borrower shall not permit the Total Leverage Ratio to exceed 4.25:1.00 as of each fiscal quarter end."
+      ]
+    }
+  }
+}

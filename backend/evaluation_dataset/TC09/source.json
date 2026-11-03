@@ -1,0 +1,12 @@
+{
+  "case_id": "TC09",
+  "title": "Annual audited statements with extension exception",
+  "documents": {
+    "agreement.pdf": {
+      "synthetic": true,
+      "pages": [
+        "Section 6.2 Annual Statements. The Borrower shall deliver audited annual financial statements within 90 days after each fiscal year end; if the auditor is delayed despite the Borrower's diligent efforts, delivery is extended to 120 days."
+      ]
+    }
+  }
+}
